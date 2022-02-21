@@ -26,8 +26,8 @@
 			# Connectem a MySQL (host,usuari,contrassenya)
 			$pdo = new PDO("mysql:host=$dbhost;dbname=$dbname",$dbuser,$dbpass);
 	 
-			$username = $_POST["user"];
-			$pass = $_POST["password"];
+			$username =  filter_var($_POST["user"],FILTER_SANITIZE_STRING);
+			$pass =  filter_var($_POST["password"], FILTER_SANITIZE_STRING);
 			# (2.1) creem el string de la consulta (query)
 			$qstr = "SELECT * FROM users WHERE name='$username' AND password=SHA2('$pass',512);";
 			$consulta = $pdo->prepare($qstr);
